@@ -5,6 +5,9 @@ Placa de Rede 1 - Tipo: Rede interna (nome: rede_interna)
 ### Server:
 Placa de Rede 1 - Tipo: Rede interna (nome: rede_externa)
 
+### Kali:
+Placa de Rede 1 - Tipo: Rede interna (nome: rede_externa)
+
 ### IPS:
 Placa de Rede 1 - Tipo: NAT  <br>
 Placa de Rede 2 - Tipo: Rede interna (nome: rede_interna)  <br>
