@@ -1,54 +1,76 @@
-Para instalar o Suricata no Ubuntu e garantir que ele esteja pronto para uso, siga este passo a passo detalhado, baseado nas fontes fornecidas:
-1. Adicionar o Repositório Oficial
-O primeiro passo é garantir que você tenha acesso à versão estável mais recente, utilizando o PPA (Personal Package Archive) mantido pela OISF
-.
-Comando: sudo add-apt-repository ppa:oisf/suricata-stable
-Explicação: Este comando adiciona o repositório específico do Suricata ao seu sistema. Isso é necessário porque os repositórios padrão do Ubuntu podem conter versões desatualizadas
-.
-2. Atualizar o Índice de Pacotes
-Após adicionar um novo repositório, você deve informar ao sistema sobre os novos pacotes disponíveis
-.
-Comando: sudo apt update
-Explicação: O comando update baixa as informações de pacotes de todos os repositórios configurados, garantindo que o comando de instalação a seguir encontre a versão correta do Suricata
-.
-3. Instalar o Suricata
-Agora você pode proceder com a instalação propriamente dita
-.
-Comando: sudo apt install suricata
-Explicação: Este comando baixa e instala os arquivos binários do Suricata e suas dependências necessárias no sistema
-.
-Dica: As fontes também recomendam instalar a ferramenta jq (sudo apt install jq), que facilita a leitura dos logs no formato JSON produzidos pelo Suricata
-.
-4. Habilitar e Iniciar o Serviço
-Para garantir que o Suricata funcione continuamente e inicie junto com o sistema, use os comandos de gerenciamento de serviço
-.
-Comando: sudo systemctl enable suricata
-Explicação: Configura o Suricata para iniciar automaticamente sempre que o computador for ligado ou reiniciado
-.
-Comando para verificar o status: sudo service suricata status
-Explicação: Mostra se o serviço está ativo e rodando corretamente no momento
-.
-5. Atualizar as Regras (Assinaturas)
-O Suricata precisa de "regras" para saber o que detectar. Sem elas, ele não gerará alertas
-.
-Comando: sudo suricata-update
-Explicação: Este comando baixa o conjunto de regras mais recente (como o ET Open), permitindo que o Suricata identifique ameaças e anomalias atuais na rede
-. As regras ficam armazenadas em /var/lib/suricata/rules
-.
-6. Configuração Básica da Interface
-Você precisa dizer ao Suricata qual placa de rede ele deve monitorar
-.
-Verifique o nome da sua interface com ip addr
-.
-Edite o arquivo de configuração: sudo nano /etc/suricata/suricata.yaml
-.
-Explicação: Dentro do arquivo, você deve localizar a seção af-packet e substituir o nome da interface padrão (geralmente eth0) pelo nome da sua interface real (ex: enp1s0) para que o Suricata possa capturar os pacotes corretamente
-.
-7. Testar e Reiniciar
-Sempre que fizer alterações na configuração, você deve testá-las e reiniciar o serviço
-.
-Comando de teste: sudo suricata -T
-Explicação: O parâmetro -T serve para testar a configuração. Ele verifica se existem erros de sintaxe no arquivo .yaml ou problemas com as regras antes de você aplicar as mudanças de fato
-.
-Comando de reinicialização: sudo service suricata restart
-Explicação: Aplica as novas configurações e reinicia o motor de detecção com as regras atualizadas
+# Guia de Instalação e Configuração do Suricata no Ubuntu
+
+Para instalar o Suricata no Ubuntu e garantir que ele esteja pronto para uso, siga este passo a passo detalhado:
+
+## 1. Adicionar o Repositório Oficial
+O primeiro passo é garantir que você tenha acesso à versão estável mais recente, utilizando o PPA (*Personal Package Archive*) mantido pela OISF.
+
+* **Comando:**
+    ```bash
+    sudo add-apt-repository ppa:oisf/suricata-stable
+    ```
+* **Explicação:** Este comando adiciona o repositório específico do Suricata ao seu sistema. Isso é necessário porque os repositórios padrão do Ubuntu podem conter versões desatualizadas.
+
+---
+
+## 2. Atualizar o Índice de Pacotes
+Após adicionar um novo repositório, você deve informar ao sistema sobre os novos pacotes disponíveis.
+
+* **Comando:**
+    ```bash
+    sudo apt update
+    ```
+* **Explicação:** O comando `update` baixa as informações de pacotes de todos os repositórios configurados, garantindo que o comando de instalação a seguir encontre a versão correta do Suricata.
+
+---
+
+## 3. Instalar o Suricata
+Agora você pode proceder com a instalação propriamente dita.
+
+* **Comando:**
+    ```bash
+    sudo apt install suricata
+    ```
+* **Explicação:** Este comando baixa e instala os arquivos binários do Suricata e suas dependências necessárias no sistema.
+
+> 💡 **Dica:** É altamente recomendável instalar também a ferramenta `jq` para facilitar a leitura dos logs no formato JSON produzidos pelo Suricata:
+> ```bash
+> sudo apt install jq
+> ```
+
+---
+
+## 4. Habilitar e Iniciar o Serviço
+Para garantir que o Suricata funcione continuamente e inicie junto com o sistema, use os comandos de gerenciamento de serviço.
+
+* **Comando para habilitar na inicialização:**
+    ```bash
+    sudo systemctl enable suricata
+    ```
+* **Explicação:** Configura o Suricata para iniciar automaticamente sempre que o computador for ligado ou reiniciado.
+
+* **Comando para verificar o status:**
+    ```bash
+    sudo service suricata status
+    ```
+* **Explicação:** Mostra se o serviço está ativo e rodando corretamente no momento.
+
+---
+
+## 5. Atualizar as Regras (Assinaturas)
+O Suricata precisa de "regras" para saber o que detectar. Sem elas, ele não gerará alertas.
+
+* **Comando:**
+    ```bash
+    sudo suricata-update
+    ```
+* **Explicação:** Este comando baixa o conjunto de regras mais recente (como o *ET Open*), permitindo que o Suricata identifique ameaças e anomalias atuais na rede. As regras ficam armazenadas em `/var/lib/suricata/rules`.
+
+---
+
+## 6. Configuração Básica da Interface
+Você precisa dizer ao Suricata qual placa de rede ele deve monitorar.
+
+1. Verifique o nome da sua interface de rede executando:
+   ```bash
+   ip addr
