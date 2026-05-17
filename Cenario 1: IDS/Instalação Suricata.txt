@@ -1,5 +1,7 @@
 Instalação Suricata
 
+OBS: Baixar o Ubuntu Server ou Ubuntu Desktop versão Jammy! (evitar conflitos de dependências)
+
 1. Adicionar o Repositório Oficial
 O primeiro passo é garantir que você tenha acesso à versão estável mais recente, utilizando o PPA (Personal Package Archive) mantido pela OISF
 .
