@@ -8,8 +8,10 @@ Saiba se eu Ubuntu é Jammy:
 1. Adicionar o Repositório Oficial
 O primeiro passo é garantir que você tenha acesso à versão estável mais recente, utilizando o PPA (Personal Package Archive) mantido pela OISF
 .
-Comando: sudo add-apt-repository ppa:oisf/suricata-stable
-Explicação: Este comando adiciona o repositório específico do Suricata ao seu sistema. Isso é necessário porque os repositórios padrão do Ubuntu podem conter versões desatualizadas
+Comandos: 
+- sudo apt-get install software-properties-common
+- sudo add-apt-repository ppa:oisf/suricata-stable
+Explicação: Estes comandos adicionam o repositório específico do Suricata ao seu sistema. Isso é necessário porque os repositórios padrão do Ubuntu podem conter versões desatualizadas
 .
 2. Atualizar o Índice de Pacotes
 Após adicionar um novo repositório, você deve informar ao sistema sobre os novos pacotes disponíveis
@@ -28,7 +30,7 @@ Dica: As fontes também recomendam instalar a ferramenta jq (sudo apt install jq
 4. Habilitar e Iniciar o Serviço
 Para garantir que o Suricata funcione continuamente e inicie junto com o sistema, use os comandos de gerenciamento de serviço
 .
-Comando: sudo systemctl enable suricata
+Comando: sudo systemctl enable suricata ou sudo systemctl enable suricata.service
 Explicação: Configura o Suricata para iniciar automaticamente sempre que o computador for ligado ou reiniciado
 .
 Comando para verificar o status: sudo service suricata status
@@ -42,7 +44,7 @@ Explicação: Este comando baixa o conjunto de regras mais recente (como o ET Op
 . As regras ficam armazenadas em /var/lib/suricata/rules
 .
 6. Configuração Básica da Interface
-Você precisa dizer ao Suricata qual placa de rede ele deve monitorar
+Você precisa dizer ao Suricata qual placa de rede ele deve monitorar (IDS)
 .
 Verifique o nome da sua interface com ip addr
 .
